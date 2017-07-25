@@ -28,6 +28,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using System.Runtime.InteropServices;
 using Grpc.Core;
 using Com.Example.Grpc;
 
@@ -59,6 +60,9 @@ namespace GreeterClient
 
             Console.WriteLine("GreeterClient received response: " + response.Greeting);
 
+            var response2 = client.goodbye(request);
+            Console.WriteLine("GreeterClient receied response:" + response2.Greeting);
+            
             // Shutdown
             channel.ShutdownAsync().Wait();
             Console.WriteLine("Press any key to exit...");
