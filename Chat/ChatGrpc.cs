@@ -35,18 +35,18 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Grpc.Core;
+using grpc = global::Grpc.Core;
 
 namespace Com.Example.Grpc.Chat {
-  public static class ChatService
+  public static partial class ChatService
   {
     static readonly string __ServiceName = "com.example.grpc.chat.ChatService";
 
-    static readonly Marshaller<global::Com.Example.Grpc.Chat.ChatMessage> __Marshaller_ChatMessage = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Example.Grpc.Chat.ChatMessage.Parser.ParseFrom);
-    static readonly Marshaller<global::Com.Example.Grpc.Chat.ChatMessageFromServer> __Marshaller_ChatMessageFromServer = Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Example.Grpc.Chat.ChatMessageFromServer.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Com.Example.Grpc.Chat.ChatMessage> __Marshaller_ChatMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Example.Grpc.Chat.ChatMessage.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Com.Example.Grpc.Chat.ChatMessageFromServer> __Marshaller_ChatMessageFromServer = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Com.Example.Grpc.Chat.ChatMessageFromServer.Parser.ParseFrom);
 
-    static readonly Method<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> __Method_chat = new Method<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer>(
-        MethodType.DuplexStreaming,
+    static readonly grpc::Method<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> __Method_chat = new grpc::Method<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer>(
+        grpc::MethodType.DuplexStreaming,
         __ServiceName,
         "chat",
         __Marshaller_ChatMessage,
@@ -59,26 +59,26 @@ namespace Com.Example.Grpc.Chat {
     }
 
     /// <summary>Base class for server-side implementations of ChatService</summary>
-    public abstract class ChatServiceBase
+    public abstract partial class ChatServiceBase
     {
-      public virtual global::System.Threading.Tasks.Task chat(IAsyncStreamReader<global::Com.Example.Grpc.Chat.ChatMessage> requestStream, IServerStreamWriter<global::Com.Example.Grpc.Chat.ChatMessageFromServer> responseStream, ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task chat(grpc::IAsyncStreamReader<global::Com.Example.Grpc.Chat.ChatMessage> requestStream, grpc::IServerStreamWriter<global::Com.Example.Grpc.Chat.ChatMessageFromServer> responseStream, grpc::ServerCallContext context)
       {
-        throw new RpcException(new Status(StatusCode.Unimplemented, ""));
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
     }
 
     /// <summary>Client for ChatService</summary>
-    public class ChatServiceClient : ClientBase<ChatServiceClient>
+    public partial class ChatServiceClient : grpc::ClientBase<ChatServiceClient>
     {
       /// <summary>Creates a new client for ChatService</summary>
       /// <param name="channel">The channel to use to make remote calls.</param>
-      public ChatServiceClient(Channel channel) : base(channel)
+      public ChatServiceClient(grpc::Channel channel) : base(channel)
       {
       }
       /// <summary>Creates a new client for ChatService that uses a custom <c>CallInvoker</c>.</summary>
       /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-      public ChatServiceClient(CallInvoker callInvoker) : base(callInvoker)
+      public ChatServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
       {
       }
       /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
@@ -91,14 +91,15 @@ namespace Com.Example.Grpc.Chat {
       {
       }
 
-      public virtual AsyncDuplexStreamingCall<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> chat(Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncDuplexStreamingCall<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> chat(grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
-        return chat(new CallOptions(headers, deadline, cancellationToken));
+        return chat(new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual AsyncDuplexStreamingCall<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> chat(CallOptions options)
+      public virtual grpc::AsyncDuplexStreamingCall<global::Com.Example.Grpc.Chat.ChatMessage, global::Com.Example.Grpc.Chat.ChatMessageFromServer> chat(grpc::CallOptions options)
       {
         return CallInvoker.AsyncDuplexStreamingCall(__Method_chat, null, options);
       }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override ChatServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
         return new ChatServiceClient(configuration);
@@ -106,9 +107,10 @@ namespace Com.Example.Grpc.Chat {
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
-    public static ServerServiceDefinition BindService(ChatServiceBase serviceImpl)
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static grpc::ServerServiceDefinition BindService(ChatServiceBase serviceImpl)
     {
-      return ServerServiceDefinition.CreateBuilder()
+      return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_chat, serviceImpl.chat).Build();
     }
 
