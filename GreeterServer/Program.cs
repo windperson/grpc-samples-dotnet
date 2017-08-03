@@ -35,7 +35,7 @@ namespace GreeterServer
 {
     class Program
     {
-        const string Host = "localhost";
+        const string Host = "0.0.0.0";
         const int Port = 50051;
 
         public static void Main(string[] args)
@@ -50,7 +50,7 @@ namespace GreeterServer
             // Start server
             server.Start();
 
-            Console.WriteLine("GreeterServer listening on port " + Port);
+            Console.WriteLine($"GreeterServer listening on {Host}:{Port} ");
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();
 
